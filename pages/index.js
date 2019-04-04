@@ -31,16 +31,12 @@ function Home(props) {
         loading = {loading}>
 
       </Todos>
-      <Form>
-
-      </Form>
     </Layout>
   );
 }
 
 Home.getInitialProps = async({ req }) => {
   const todos = await getTodos();
-  console.log(todos);
   /* Fer eftir hvernis bakendinn skilar gognum, hvernig vid kollum a thau */
   return { initTodos: todos.result }
 }

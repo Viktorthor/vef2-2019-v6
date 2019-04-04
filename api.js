@@ -9,7 +9,6 @@ export async function deleteTodo(id) {
 
 // ATH THARF EKKI AD GERA THEGAR THAD ER GET REQUEST
 export async function addTodo(title, due) {
-  /* todo */
   const options = {
     body: JSON.stringify({
       title,
@@ -23,14 +22,6 @@ export async function addTodo(title, due) {
 
   const url = new URL('/', apiUrl);
   const response = await fetch(url.href, options);
-
-  /*
-  const url = new URL('/${id}', apiUrl);
-  const response = await fetch(url.href, options);
-  svona haegt ad fetch-a. tharf ekki endilega options, ef td saekja einn id gaeja.
-  */
-
-  /*...*/
 
 }
 
@@ -53,14 +44,8 @@ export async function getTodos(hideCompleted = undefined) {
 }
 
 export async function getTodo(id) {
-  console.log(id);
-  //console.log(apiUrl);
-  const url = new URL(apiUrl);
-  const response = await fetch(url.href);
-  const result = await response.json();
+  const toDo = await getTodos();
+  const foundTodo = toDo.result.find(i => i.id === Number(id));
 
-  return {
-    success: response.ok,
-    result
-  }
+  return foundTodo;
 }

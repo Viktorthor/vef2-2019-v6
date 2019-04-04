@@ -19,7 +19,7 @@ export default function Todos(props) {
               <TodoItem key={i} todo={item} id={initTodos[i].id} />
       ))}
       </div>
-
+      <Form />
     </React.Fragment>
   );
 }

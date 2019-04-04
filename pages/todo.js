@@ -9,10 +9,9 @@ import { getTodo } from '../api';
 function Home(props) {
   const {todo, id} = props;
   return (
-    <Layout>
+    <Layout title = {todo.title}>
       <TodoDetail
-      id = {id}
-      getTodo = {getTodo}>
+      todo = {todo}>
       <h1>Hallo</h1>
       </TodoDetail>
     </Layout>
@@ -23,7 +22,7 @@ Home.getInitialProps = async({ query }) => {
   const { id } = query;
 
   const todo = await getTodo(id);
-  return { id ,initTodo: todo.result }
+  return { id , todo };
 }
 
 export default Home

@@ -28,8 +28,8 @@ function Home(props) {
     <Layout title="Verkefni">
       <Todos
         initTodos = {initTodos}
-        loading = {loading}>
-
+        loading = {loading}
+        onToggleHidden = {onToggleHidden}>
       </Todos>
     </Layout>
   );

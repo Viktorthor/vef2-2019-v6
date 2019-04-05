@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-import { addTodo } from '../../api';
+import { addTodo, getTodo } from '../../api';
 
 import Button from '../button/Button';
 import Field from '../field/Field';
@@ -17,18 +16,55 @@ export default function Form(props) {
   const [errors, setErrors] = useState([]);
 
   async function onSubmit(e) {
+    e.preventDefault();
+    setLoading(true);
+    setErrors([]);
+    const result = await addTodo(data.title, data.due);
 
+    if(!result.success) {
+      setErrors(result.response);
+      setLoading(false);
+      return;
+    }
+    setLoading(false);
   }
 
-  function onChange(e) {
+  function onChangeTitle(e) {
+    setData({
+      ...data,
+      title: e.target.value,
+    });
+  }
 
+  function onChangeDue(e) {
+    let due = e.target.value
+    if(due.length === 0) {
+      due = null;
+    }
+    setData({
+      ...data,
+      due: e.target.value,
+    });
   }
 
   return (
     <form className={css.form} onSubmit={onSubmit}>
+    {errors &&
+      <Errors errors={errors} />}
+    {loading &&
+      <p>Hleð gögnum... </p>}
       <h2 className={css.form__header}>Nýtt Verkefni</h2>
-      <label>Titill:</label><input></input>
-      <label>Klárast fyrir:</label><input type="datetime-local"></input>
+      <Field
+        title="Titill:"
+        value={data.title}
+        onChange={onChangeTitle}
+      />
+      <Field
+        title="Klárast fyrir:"
+        type="datetime-local"
+        onChange={onChangeDue}
+      />
+      <Button children="Búa til" onClick={onSubmit} />
     </form>
   )
 }

@@ -4,7 +4,15 @@ const { publicRuntimeConfig } = getConfig();
 const { apiUrl } = publicRuntimeConfig;
 
 export async function deleteTodo(id) {
-  /* todo */
+  const options = {
+    headers: {
+      'content-type': 'application/json',
+    },
+    method: 'DELETE',
+  };
+
+  const url = new URL(`/${id}`, apiUrl);
+  await fetch(url.href, options);
 }
 
 // ATH THARF EKKI AD GERA THEGAR THAD ER GET REQUEST
@@ -23,6 +31,11 @@ export async function addTodo(title, due) {
   const url = new URL('/', apiUrl);
   const response = await fetch(url.href, options);
 
+  const result = await response.json();
+  return {
+    success: response.ok,
+    result
+  }
 }
 
 export async function updateTodo(id, { title, completed, due } = {}) {

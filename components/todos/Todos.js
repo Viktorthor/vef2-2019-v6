@@ -12,7 +12,7 @@ export default function Todos(props) {
 
   return (
     <React.Fragment>
-      <Button children="Fela búið"/>
+      <Button children="Sýna Allt"/>
 
       <div className="todos">
       {initTodos.map((item, i) => (
